@@ -1,0 +1,46 @@
+name:        overgrown_conf_12ep_bs40_data_aug_refiner
+description: "Best config + overgrown + aleatoric confidence head + SAM-guided refinement"
+data_dir: /content/data/monodepth_kaggle2026
+
+extra_train_dir: /content/data/overgrown_train
+
+filter_aerial_csv: /content/data/clip_scores/train_aerial.csv
+water_csv:         /content/data/clip_scores/train_water.csv
+val_water_frac:    0.30
+water_upsample:    4.0
+
+augmentation:
+  hflip:        0.5
+  color_jitter: [0.2, 0.2, 0.2, 0.05]
+
+head:
+  decoder_features: 128
+  use_conf: true
+
+losses:
+  silog:      1.0
+  conf:       0.5
+  conf_alpha: 0.2
+
+dataloader:
+  num_workers: 8
+  pin_memory: true
+  persistent_workers: true
+  prefetch_factor: 2
+
+seed: 42
+
+epochs:     12
+batch_size: 40
+lr:         0.0003
+val_frac:   0.2
+
+swap: refinement
+
+refiner:
+  name:       refiner_v1
+  max_segs:   256
+  epochs:     5
+  batch_size: 64
+  lr:         0.0001
+  val_frac:   0.2

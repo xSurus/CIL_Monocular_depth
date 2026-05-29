@@ -1,0 +1,31 @@
+name: baseline_raw_train_4ep_bs40
+description: "Baseline model on raw training data only, 4 epochs"
+data_dir: /content/data/monodepth_kaggle2026
+
+# Intentionally no:
+# - extra_train_dir
+# - filter_aerial_csv
+# - water_csv / water_upsample
+# - augmentation
+
+head:
+  decoder_features: 128
+  use_conf: true
+
+losses:
+  silog:    1.0
+  conf:       0.5
+  conf_alpha: 0.2
+
+dataloader:
+  num_workers: 8
+  pin_memory: true
+  persistent_workers: true
+  prefetch_factor: 2
+
+seed: 42
+
+epochs:     4
+batch_size: 40
+lr:         0.0003
+val_frac:   0.2

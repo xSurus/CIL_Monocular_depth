@@ -1,0 +1,11 @@
+checkpoints
+checkpoints/
+predictions
+predictions/
+logs
+logs/
+submission*.csv
+__pycache__/
+*.pyc
+*.pth
+*.pt

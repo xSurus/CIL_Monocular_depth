@@ -1,0 +1,34 @@
+name: baseline_raw_train_12ep_vegetation_8ep_bs40
+description: "8 epoch baseline model for vegetation and 12 epoch model for rest, training on raw training data only"
+data_dir: /content/data/monodepth_kaggle2026
+
+# Intentionally no:
+# - extra_train_dir
+# - filter_aerial_csv
+# - water_csv / water_upsample
+# - augmentation
+
+head:
+  decoder_features: 128
+  use_conf: true
+
+losses:
+  silog:    1.0
+  conf:       0.5
+  conf_alpha: 0.2
+
+dataloader:
+  num_workers: 8
+  pin_memory: true
+  persistent_workers: true
+  prefetch_factor: 2
+
+seed: 42
+
+epochs:     12
+save_epoch_checkpoint: 8
+batch_size: 40
+lr:         0.0003
+val_frac:   0.2
+
+swap: epoch
